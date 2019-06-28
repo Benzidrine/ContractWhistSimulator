@@ -1,0 +1,11 @@
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.0\ContractWhist.deps.json
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.0\ContractWhist.runtimeconfig.json
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.0\ContractWhist.runtimeconfig.dev.json
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.0\ContractWhist.dll
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.0\ContractWhist.pdb
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.csprojAssemblyReference.cache
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.csproj.CoreCompileInputs.cache
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.AssemblyInfoInputs.cache
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.AssemblyInfo.cs
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.dll
+c:\users\benzidrine\source\repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.0\ContractWhist.pdb
