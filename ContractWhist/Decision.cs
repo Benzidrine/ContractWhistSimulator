@@ -46,8 +46,17 @@ namespace ContractWhist
         {
             foreach(Player player in players)
             {
-                Random rng = new Random();
-                player.Bid = rng.Next(0, 10);
+                if (player.UseML)
+                {
+                    player.Bid = MLBid.DecideBid(player);
+                }
+                else
+                {
+                    Random rng = new Random();
+                    int lowerBound = 0 + player.NumberOfValueCard(14); //Lower bound of bids number of aces in hand
+                    int upperBound = 10 - player.NumberOfValueCard(2); //Lower bound of bids number of twos in hand
+                    player.Bid = rng.Next(lowerBound, upperBound);
+                }
             }
         }
 
@@ -57,6 +66,16 @@ namespace ContractWhist
             Player playerOne = players.FirstOrDefault(x => x.Leading == true);
             //Player One plays random card
             playerOne.Hand.Shuffle();
+            if (playerOne.Wins == playerOne.Bid)
+            {
+                //Go low if want to lose
+                playerOne.Hand = playerOne.Hand.OrderBy(x => x.Value).ToList(); 
+            }
+            else if (playerOne.Wins < (playerOne.Bid - 1))
+            {
+                //If need multiple wins then go high
+                playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.Value).ToList();
+            }
             playerOne.PlayedCard = playerOne.Hand[0];
 
             //Set players to follow suit if able

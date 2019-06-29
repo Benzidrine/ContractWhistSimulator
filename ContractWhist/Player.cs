@@ -7,10 +7,11 @@ namespace ContractWhist
 {
     public class Player
     {
-        public Player (int IDinput)
+        public Player(int IDinput, bool useML)
         {
             ID = IDinput;
             Wins = 0;
+            UseML = useML;
         }
         public string HandSeperatedString()
         {
@@ -37,5 +38,6 @@ namespace ContractWhist
         public List<Card> Hand { get; set; }
         public bool Leading { get; set; } //Will play first card in next trick
         public bool SuitedCardFound { get; set; }
+        public bool UseML { get; set; }
     }
 }

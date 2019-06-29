@@ -8,18 +8,43 @@ namespace ContractWhist
     {
         static void Main(string[] args)
         {
-            for (int i = 1; i < 5000; i++)
-            {
-                Game();
-            }
-            Console.ReadLine();
+            Parser();
         }
 
+        static void Parser()
+        {
+            Console.WriteLine("Command:");
+            String input = Console.ReadLine();
+            if (input.ToLower() == "run")
+            {
+                Console.WriteLine("How many runs:");
+                input = Console.ReadLine();
+                int NumberOfRuns = 0;
+                if (int.TryParse(input, out NumberOfRuns))
+                {
+                    for (int i = 1; i < NumberOfRuns; i++)
+                    {
+                        Game();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                }
+            }
+            else if (input.ToLower() == "exit" || input.ToLower() == "quit")
+            {
+                System.Environment.Exit(1);
+            }
+
+                Parser();
+        }
+        
         static void Game()
         {
             List<Player> Players = new List<Player>();
-            Players.Add(new Player(1));
-            Players.Add(new Player(2));
+            Players.Add(new Player(1,true));
+            Players.Add(new Player(2,false));
             Players[0].Leading = true; //Set Player One to lead trick
             List<Card> deck = Deal.CreateDeck();
             Decision.SetTrumps(deck, 3); //Set Spades as Trump

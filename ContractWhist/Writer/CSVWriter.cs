@@ -15,7 +15,9 @@ namespace ContractWhist
 
             //after your loop
             if (handRecord.GameWon == 1)
-                File.AppendAllText("C:\\Users\\benzidrine\\source\\repos\\ContractWhist\\ContractWhist\\Writer\\HandRecord.csv", csv.ToString());
+                File.AppendAllText("Z:\\Repos\\ContractWhist\\ContractWhist\\Writer\\HandRecord.csv", csv.ToString());
         }
     }
+
+    //mlnet auto-train --task regression --dataset "HandRecord.csv" --label-column-index 0 --has-header true --max-exploration-time 30
 }

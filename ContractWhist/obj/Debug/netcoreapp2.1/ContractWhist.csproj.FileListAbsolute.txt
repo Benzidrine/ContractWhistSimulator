@@ -1,0 +1,12 @@
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\ContractWhist.deps.json
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\ContractWhist.runtimeconfig.json
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\ContractWhist.runtimeconfig.dev.json
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\ContractWhist.dll
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\ContractWhist.pdb
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.csprojAssemblyReference.cache
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.csproj.CoreCompileInputs.cache
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.AssemblyInfoInputs.cache
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.AssemblyInfo.cs
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.dll
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.pdb
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\MLModel.zip
