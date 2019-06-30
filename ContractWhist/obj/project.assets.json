@@ -1081,6 +1081,7 @@
       "type": "package",
       "path": "microsoft.ml/1.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "THIRD-PARTY-NOTICES.TXT",
@@ -1116,6 +1117,7 @@
       "type": "package",
       "path": "microsoft.ml.cpumath/1.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "THIRD-PARTY-NOTICES.TXT",
@@ -1135,6 +1137,7 @@
       "type": "package",
       "path": "microsoft.ml.dataview/1.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "THIRD-PARTY-NOTICES.TXT",
@@ -1666,6 +1669,7 @@
       "type": "package",
       "path": "system.codedom/4.4.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -3826,6 +3830,7 @@
       "type": "package",
       "path": "system.threading.tasks.dataflow/4.8.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",

@@ -8,14 +8,37 @@ namespace ContractWhist
 {
     public class Decision
     {
-        public static void PlayCard(List<Player> players)
+        public static void PlayCardNN(List<Player> players, bool WriteResults)
         {
+            Card WinningCard = HighestCard(players);
+            //Set all players leading to false
+            players.ForEach(x => { x.Leading = false; });
+            //Set who won and leads next round
+            players.ForEach(p => {
+                if (p.PlayedCard.ID == WinningCard.ID)
+                {
+                    p.Wins++;
+                }
+            });
+
+            int PlayerCount = 1;
+            //Write Result
             foreach (Player player in players)
             {
-                //play random card
-                Random rng = new Random();
-                player.Hand.Shuffle();
+                if (WriteResults)
+                    Console.WriteLine("Player " + PlayerCount + " Played " + player.PlayedCard.ValueName + " of " + player.PlayedCard.suit.SuitName + " " + (player.PlayedCard.Won ? "Winner" : "") + " Card ID: " + player.PlayedCard.ID);
+                PlayerCount++;
             }
+
+            //Remove played card 
+            foreach (Player player in players)
+            {
+                player.Hand.Remove(player.PlayedCard);
+            }
+        }
+
+        public static void PlayCard(List<Player> players, bool WriteResults)
+        {
             Card WinningCard = HighestCard(players);
             //Set all players leading to false
             players.ForEach(x => { x.Leading = false; });
@@ -32,7 +55,8 @@ namespace ContractWhist
             //Write Result
             foreach (Player player in players)
             {
-                Console.WriteLine("Player " + PlayerCount + " Played " + player.PlayedCard.ValueName + " of " + player.PlayedCard.suit.SuitName + " " + (player.PlayedCard.Won ? "Winner" : "") + " Card ID: " + player.PlayedCard.ID);
+                if (WriteResults)
+                    Console.WriteLine("Player " + PlayerCount + " Played " + player.PlayedCard.ValueName + " of " + player.PlayedCard.suit.SuitName + " " + (player.PlayedCard.Won ? "Winner" : "") + " Card ID: " + player.PlayedCard.ID);
                 PlayerCount++;
             }
 
@@ -68,13 +92,11 @@ namespace ContractWhist
             //If Neural Network Player
             if (playerOne.UseNN)
             {
-                playerOne.Hand.OrderByDescending(x => x.NNValue);
+                playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.NNValue).ToList();
                 playerOne.PlayedCard = playerOne.Hand[0];
             }
             else
             {
-                //Player One plays random card
-                playerOne.Hand.Shuffle();
                 if (playerOne.Wins == playerOne.Bid)
                 {
                     //Go low if want to lose
@@ -86,7 +108,10 @@ namespace ContractWhist
                     playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.Value).ToList();
                     playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.suit.IsTrump).ToList();
                 }
-                playerOne.PlayedCard = playerOne.Hand[0];
+                else
+                {
+                    playerOne.PlayedCard = playerOne.Hand[0];
+                }
             }
 
             //Set players to follow suit if able
@@ -97,8 +122,6 @@ namespace ContractWhist
                 //Set players other than player one to play card
                 if (playerOne.ID != player.ID)
                 {
-
-                    player.Hand.Shuffle();
                     foreach (Card c in player.Hand)
                     {
                         if (c.suit.ID == playerOne.PlayedCard.suit.ID)
@@ -152,7 +175,6 @@ namespace ContractWhist
                     }
                     else //Random
                     {
-                        player.Hand.Shuffle();
                         player.PlayedCard = player.Hand[0];
                         continue;
                     }
@@ -165,7 +187,6 @@ namespace ContractWhist
             //Find lead player
             Player playerOne = players.FirstOrDefault(x => x.Leading == true);
             //Player One plays random card
-            playerOne.Hand.Shuffle();
             if (playerOne.Wins == playerOne.Bid)
             {
                 //Go low if want to lose
@@ -187,8 +208,6 @@ namespace ContractWhist
                 //Set players other than player one to play card
                 if (playerOne.ID != player.ID)
                 {
-
-                    player.Hand.Shuffle();
                     foreach(Card c in player.Hand)
                     {
                         if (c.suit.ID == playerOne.PlayedCard.suit.ID)
@@ -242,7 +261,6 @@ namespace ContractWhist
                     }
                     else //Random
                     {
-                        player.Hand.Shuffle();
                         player.PlayedCard = player.Hand[0];
                         continue;
                     }

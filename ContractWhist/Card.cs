@@ -24,5 +24,10 @@ namespace ContractWhist
         public bool Won { get; set; } //if card won trick
 
         public float NNValue { get; set; } //Neural Network weight
+
+        internal Card Clone()
+        {
+            return new Card(this.ID);
+        }
     }
 }

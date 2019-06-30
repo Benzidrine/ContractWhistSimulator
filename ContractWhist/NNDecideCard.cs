@@ -10,7 +10,7 @@ namespace ContractWhist
     {
         public static void ApplyWeightsToCards(NeuralNetwork NN, List<Card> cards)
         {
-            List<float> IDs = cards.Select(x => (float)x.ID).ToList();
+            List<float> IDs = cards.Select(x => (float)x.Value).ToList();
             List<float> Weights = NN.FeedForward(IDs.ToArray()).ToList();
             for (int i = 0; i < cards.Count(); i++)
             {
