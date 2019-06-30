@@ -10,3 +10,6 @@ Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.Assem
 Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.dll
 Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.pdb
 Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\MLModel.zip
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\NeuralNetworkLib.dll
+Z:\Repos\ContractWhist\ContractWhist\bin\Debug\netcoreapp2.1\NeuralNetworkLib.pdb
+Z:\Repos\ContractWhist\ContractWhist\obj\Debug\netcoreapp2.1\ContractWhist.csproj.CopyComplete

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using NeuralNetworkLib;
 
 namespace ContractWhist
 {
@@ -60,6 +61,105 @@ namespace ContractWhist
             }
         }
 
+        public static void DecideCardToPlayNN(List<Player> players, NeuralNetwork NN)
+        {
+            //Find lead player
+            Player playerOne = players.FirstOrDefault(x => x.Leading == true);
+            //If Neural Network Player
+            if (playerOne.UseNN)
+            {
+                playerOne.Hand.OrderByDescending(x => x.NNValue);
+                playerOne.PlayedCard = playerOne.Hand[0];
+            }
+            else
+            {
+                //Player One plays random card
+                playerOne.Hand.Shuffle();
+                if (playerOne.Wins == playerOne.Bid)
+                {
+                    //Go low if want to lose
+                    playerOne.Hand = playerOne.Hand.OrderBy(x => x.Value).ToList();
+                }
+                else if (playerOne.Wins < playerOne.Bid)
+                {
+                    //If need wins then go high
+                    playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.Value).ToList();
+                    playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.suit.IsTrump).ToList();
+                }
+                playerOne.PlayedCard = playerOne.Hand[0];
+            }
+
+            //Set players to follow suit if able
+            foreach (Player player in players)
+            {
+                //Set to false to wipe record of last run
+                player.SuitedCardFound = false;
+                //Set players other than player one to play card
+                if (playerOne.ID != player.ID)
+                {
+
+                    player.Hand.Shuffle();
+                    foreach (Card c in player.Hand)
+                    {
+                        if (c.suit.ID == playerOne.PlayedCard.suit.ID)
+                        {
+                            player.SuitedCardFound = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //Basic AI
+            foreach (Player player in players)
+            {
+                //Set players other than player one to play card
+                if (playerOne.ID != player.ID)
+                {
+                    if (player.SuitedCardFound)
+                    {
+                        if (player.Wins == player.Bid) //Try to lose 
+                        {
+                            player.Hand = player.Hand.OrderBy(x => x.Value).ToList();
+                            player.PlayedCard = player.Hand.FirstOrDefault(x => x.suit.ID == playerOne.PlayedCard.suit.ID);
+                            continue;
+                        }
+                        //if need to win play high or try to stop other player winning if already lost
+                        else if (player.Wins < player.Bid || player.Wins > player.Bid)
+                        {
+                            player.Hand = player.Hand.OrderByDescending(x => x.Value).ToList();
+                            player.PlayedCard = player.Hand.FirstOrDefault(x => x.suit.ID == playerOne.PlayedCard.suit.ID);
+                            continue;
+                        }
+                    }
+                    else if (player.NumberOfTrumpCards() > 0 && player.Wins < player.Bid) //Try to win with Trump
+                    {
+                        player.Hand = player.Hand.OrderBy(x => x.Value).ToList();
+                        player.PlayedCard = player.Hand.FirstOrDefault(x => x.suit.IsTrump);
+                        continue;
+                    }
+                    else if (player.Wins == player.Bid && player.NumberOfTrumpCards() != player.Hand.Count()) // Dump High
+                    {
+                        player.Hand = player.Hand.OrderByDescending(x => x.Value).ToList();
+                        player.PlayedCard = player.Hand.FirstOrDefault(x => x.suit.IsTrump == false);
+                        continue;
+                    }
+                    else if (player.Wins < player.Bid) //Dump Low
+                    {
+                        player.Hand = player.Hand.OrderBy(x => x.Value).ToList();
+                        player.PlayedCard = player.Hand[0];
+                        continue;
+                    }
+                    else //Random
+                    {
+                        player.Hand.Shuffle();
+                        player.PlayedCard = player.Hand[0];
+                        continue;
+                    }
+                }
+            }
+        }
+
         public static void DecideCardToPlay(List<Player> players)
         {
             //Find lead player
@@ -71,10 +171,11 @@ namespace ContractWhist
                 //Go low if want to lose
                 playerOne.Hand = playerOne.Hand.OrderBy(x => x.Value).ToList(); 
             }
-            else if (playerOne.Wins < (playerOne.Bid - 1))
+            else if (playerOne.Wins < playerOne.Bid)
             {
-                //If need multiple wins then go high
+                //If need wins then go high
                 playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.Value).ToList();
+                playerOne.Hand = playerOne.Hand.OrderByDescending(x => x.suit.IsTrump).ToList();
             }
             playerOne.PlayedCard = playerOne.Hand[0];
 

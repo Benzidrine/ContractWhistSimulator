@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NeuralNetworkLib\NeuralNetworkLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="MLModel.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -39,7 +39,13 @@ namespace ContractWhist
             modelInput.NumberOfTrumpCards = player.NumberOfTrumpCards();
             modelInput.NumberOfAces = player.NumberOfValueCard(14);
             modelInput.NumberOfTwos = player.NumberOfValueCard(2);
-            modelInput.TotalValue = player.SumValue();
+            modelInput.ValueOfTrumpCards = player.SumValueConsideringTrump(true);
+            modelInput.ValueOfNonTrumpCards = player.SumValueConsideringTrump(false);
+            modelInput.StdDevOfNonTrump = float.Parse(player.StdDevConsideringTrump(false).ToString());
+            modelInput.Mean = float.Parse(player.Mean().ToString());
+            modelInput.MeanNonTrump = float.Parse(player.MeanConsideringTrump(false).ToString());
+            modelInput.MeanTrump = float.Parse(player.MeanConsideringTrump(true).ToString());
+            modelInput.CardsInHand = player.HandSeperatedString();
             return modelInput;
         }
 

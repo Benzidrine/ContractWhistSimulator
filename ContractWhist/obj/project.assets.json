@@ -1004,6 +1004,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
+      },
+      "NeuralNetworkLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/NeuralNetworkLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NeuralNetworkLib.dll": {}
+        }
       }
     }
   },
@@ -3959,13 +3969,19 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
+    },
+    "NeuralNetworkLib/1.0.0": {
+      "type": "project",
+      "path": "../NeuralNetworkLib/NeuralNetworkLib.csproj",
+      "msbuildProject": "../NeuralNetworkLib/NeuralNetworkLib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.ML >= 1.1.0",
       "Microsoft.ML.FastTree >= 1.1.0",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "NeuralNetworkLib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3997,7 +4013,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "Z:\\Repos\\ContractWhist\\NeuralNetworkLib\\NeuralNetworkLib.csproj": {
+              "projectPath": "Z:\\Repos\\ContractWhist\\NeuralNetworkLib\\NeuralNetworkLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

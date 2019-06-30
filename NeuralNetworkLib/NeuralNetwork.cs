@@ -1,0 +1,228 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
+
+namespace NeuralNetworkLib
+{
+    public class NeuralNetwork
+    {
+        public int[] layers;//layers
+        public float[][] neurons;//neurons
+        public float[][] biases;//biasses
+        public float[][][] weights;//weights
+        public int[] activations;//layers
+
+        public float fitness = 0;//fitness
+
+        public NeuralNetwork()
+        {
+        }
+
+        public NeuralNetwork(int[] layers)
+        {
+            this.layers = new int[layers.Length];
+            for (int i = 0; i < layers.Length; i++)
+            {
+                this.layers[i] = layers[i];
+            }
+            InitNeurons();
+            InitBiases();
+            InitWeights();
+        }
+
+        private void InitNeurons()//create empty storage array for the neurons in the network.
+        {
+            List<float[]> neuronsList = new List<float[]>();
+            for (int i = 0; i < layers.Length; i++)
+            {
+                neuronsList.Add(new float[layers[i]]);
+            }
+            neurons = neuronsList.ToArray();
+        }
+
+        private void InitBiases()//initializes and populates array for the biases being held within the network.
+        {
+            Random rng = new Random();
+            List<float[]> biasList = new List<float[]>();
+            for (int i = 0; i < layers.Length; i++)
+            {
+                float[] bias = new float[layers[i]];
+                for (int j = 0; j < layers[i]; j++)
+                {
+                    bias[j] = GetRandomNumberInRange(-0.5f, 0.5f);
+                }
+                biasList.Add(bias);
+            }
+            biases = biasList.ToArray();
+        }
+
+        private void InitWeights()//initializes random array for the weights being held in the network.
+        {
+            List<float[][]> weightsList = new List<float[][]>();
+            for (int i = 1; i < layers.Length; i++)
+            {
+                List<float[]> layerWeightsList = new List<float[]>();
+                int neuronsInPreviousLayer = layers[i - 1];
+                for (int j = 0; j < neurons[i].Length; j++)
+                {
+                    float[] neuronWeights = new float[neuronsInPreviousLayer];
+                    for (int k = 0; k < neuronsInPreviousLayer; k++)
+                    {
+                        //float sd = 1f / ((neurons[i].Length + neuronsInPreviousLayer) / 2f);
+                        neuronWeights[k] = GetRandomNumberInRange(-0.5f, 0.5f);
+                    }
+                    layerWeightsList.Add(neuronWeights);
+                }
+                weightsList.Add(layerWeightsList.ToArray());
+            }
+            weights = weightsList.ToArray();
+        }
+
+        public float activate(float value)
+        {
+            return (float)Math.Tanh(value);
+        }
+
+        public float GetRandomNumberInRange(float minNumber, float maxNumber)
+        {
+            Random rnd = new Random();
+            float RandomF = (float)rnd.NextDouble();
+            return RandomF * (maxNumber - minNumber) + minNumber;
+        }
+
+        public float[] FeedForward(float[] inputs)//feed forward, inputs >==> outputs.
+        {
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                neurons[0][i] = inputs[i];
+            }
+            for (int i = 1; i < layers.Length; i++)
+            {
+                int layer = i - 1;
+                for (int j = 0; j < neurons[i].Length; j++)
+                {
+                    float value = 0f;
+                    for (int k = 0; k < neurons[i - 1].Length; k++)
+                    {
+                        value += weights[i - 1][j][k] * neurons[i - 1][k];
+                    }
+                    neurons[i][j] = activate(value + biases[i][j]);
+                }
+            }
+            return neurons[neurons.Length - 1];
+        }
+
+        public int CompareTo(NeuralNetwork other) //Comparing For NeuralNetworks performance.
+        {
+            if (other == null) return 1;
+
+            if (fitness > other.fitness)
+                return 1;
+            else if (fitness < other.fitness)
+                return -1;
+            else
+                return 0;
+        }
+
+        public NeuralNetwork copy(NeuralNetwork nn) //For creatinga deep copy, to ensure arrays are serialzed.
+        {
+            for (int i = 0; i < biases.Length; i++)
+            {
+                for (int j = 0; j < biases[i].Length; j++)
+                {
+                    nn.biases[i][j] = biases[i][j];
+                }
+            }
+            for (int i = 0; i < weights.Length; i++)
+            {
+                for (int j = 0; j < weights[i].Length; j++)
+                {
+                    for (int k = 0; k < weights[i][j].Length; k++)
+                    {
+                        nn.weights[i][j][k] = weights[i][j][k];
+                    }
+                }
+            }
+            return nn;
+        }
+
+        public void Mutate(int chance, float val)//used as a simple mutation function for any genetic implementations.
+        {
+            for (int i = 0; i < biases.Length; i++)
+            {
+                for (int j = 0; j < biases[i].Length; j++)
+                {
+                    biases[i][j] = (GetRandomNumberInRange(0f, chance) <= 5) ? biases[i][j] += GetRandomNumberInRange(-val, val) : biases[i][j];
+                }
+            }
+
+            for (int i = 0; i < weights.Length; i++)
+            {
+                for (int j = 0; j < weights[i].Length; j++)
+                {
+                    for (int k = 0; k < weights[i][j].Length; k++)
+                    {
+                        weights[i][j][k] = (GetRandomNumberInRange(0f, chance) <= 5) ? weights[i][j][k] += GetRandomNumberInRange(-val, val) : weights[i][j][k];
+                    }
+                }
+            }
+        }
+
+        public void Save<NeuralNetwork>(NeuralNetwork neuralNetwork)
+        {
+            if (neuralNetwork == null) { return; }
+
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                XmlSerializer serializer = new XmlSerializer(neuralNetwork.GetType());
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    serializer.Serialize(stream, neuralNetwork);
+                    stream.Position = 0;
+                    xmlDocument.Load(stream);
+                    xmlDocument.Save("Z:\\Repos\\ContractWhist\\ContractWhist\\NeuralNetwork");
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception here
+            }
+        }
+        
+        public NeuralNetwork Load()
+        {
+            string fileName = "Z:\\Repos\\ContractWhist\\ContractWhist\\NeuralNetwork";
+            if (string.IsNullOrEmpty(fileName)) { return default(NeuralNetwork); }
+
+            NeuralNetwork objectOut = default(NeuralNetwork);
+
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(fileName);
+                string xmlString = xmlDocument.OuterXml;
+
+                using (StringReader read = new StringReader(xmlString))
+                {
+                    Type outType = typeof(NeuralNetwork);
+
+                    XmlSerializer serializer = new XmlSerializer(outType);
+                    using (XmlReader reader = new XmlTextReader(read))
+                    {
+                        objectOut = (NeuralNetwork)serializer.Deserialize(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception here
+            }
+
+            return objectOut;
+        }
+    }
+}

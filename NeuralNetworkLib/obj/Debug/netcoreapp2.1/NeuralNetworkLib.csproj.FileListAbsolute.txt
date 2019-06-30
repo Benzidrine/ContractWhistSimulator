@@ -1,0 +1,9 @@
+Z:\Repos\ContractWhist\NeuralNetworkLib\bin\Debug\netcoreapp2.1\NeuralNetworkLib.deps.json
+Z:\Repos\ContractWhist\NeuralNetworkLib\bin\Debug\netcoreapp2.1\NeuralNetworkLib.dll
+Z:\Repos\ContractWhist\NeuralNetworkLib\bin\Debug\netcoreapp2.1\NeuralNetworkLib.pdb
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.csprojAssemblyReference.cache
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.csproj.CoreCompileInputs.cache
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.AssemblyInfoInputs.cache
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.AssemblyInfo.cs
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.dll
+Z:\Repos\ContractWhist\NeuralNetworkLib\obj\Debug\netcoreapp2.1\NeuralNetworkLib.pdb

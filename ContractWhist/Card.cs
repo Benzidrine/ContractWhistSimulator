@@ -22,5 +22,7 @@ namespace ContractWhist
         public enum ValueNameEnum { None, Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King }
         public Suit suit { get; set; }
         public bool Won { get; set; } //if card won trick
+
+        public float NNValue { get; set; } //Neural Network weight
     }
 }

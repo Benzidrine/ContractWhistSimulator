@@ -23,6 +23,25 @@ namespace ContractWhist
             List<int> Values = this.Hand.Select(x => x.Value).ToList();
             return Values.Sum();
         }
+        public int SumValueConsideringTrump(bool isTrump)
+        {
+            return this.Hand.Where(x => x.suit.IsTrump == isTrump).Select(x => x.Value).ToList().Sum();
+        }
+        public double StdDevConsideringTrump(bool isTrump)
+        {
+            return this.Hand.Where(x => x.suit.IsTrump == isTrump).Select(x => x.Value).ToList().CalculateStdDev();
+        }
+        public double MeanConsideringTrump(bool isTrump)
+        {
+            if (this.Hand.Where(x => x.suit.IsTrump == isTrump).Select(x => x.Value).ToList().Count > 0)
+                return this.Hand.Where(x => x.suit.IsTrump == isTrump).Select(x => x.Value).ToList().Average();
+            else
+                return 0;
+        }
+        public double Mean()
+        {
+            return this.Hand.Select(x => x.Value).ToList().Average();
+        }
         public int NumberOfTrumpCards()
         {
             return this.Hand.Where(x => x.suit.IsTrump == true).ToList().Count();
@@ -39,5 +58,6 @@ namespace ContractWhist
         public bool Leading { get; set; } //Will play first card in next trick
         public bool SuitedCardFound { get; set; }
         public bool UseML { get; set; }
+        public bool UseNN { get; set; }
     }
 }
